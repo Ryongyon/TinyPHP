@@ -99,10 +99,16 @@ RewriteRule ^(.*)$ index.php [L,E=PATH_INFO:$1]
 
 用于操作数据库
 
-- 查询 : $this->execute("SELECT * FROM " . DB_PREFIX . "options")
-- 添加 : $this->execute("INSERT INTO " . DB_PREFIX . "users (username, password) VALUES (?, ?)", array($username, $password));
-- 更新 : $this->execute("UPDATE " . DB_PREFIX . "options SET value = ? WHERE name = ?", array($value, $name));
-- 删除 : $this->execute("DELETE FROM " . DB_PREFIX . "users WHERE uid = ?", array($uid));
+```php
+// 增
+$this->execute("INSERT INTO " . DB_PREFIX . "users (username, password) VALUES (?, ?)", array($username, $password));
+// 查
+$this->execute("SELECT * FROM " . DB_PREFIX . "options")
+// 删
+$this->execute("DELETE FROM " . DB_PREFIX . "users WHERE uid = ?", array($uid));
+// 改
+$this->execute("UPDATE " . DB_PREFIX . "options SET value = ? WHERE name = ?", array($value, $name));
+```
 
 #### $this->fetch()
 
