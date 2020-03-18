@@ -102,10 +102,10 @@ RewriteRule ^(.*)$ index.php [L,E=PATH_INFO:$1]
 ```php
 // 增
 $this->execute("INSERT INTO " . DB_PREFIX . "users (username, password) VALUES (?, ?)", array($username, $password));
-// 查
-$this->execute("SELECT * FROM " . DB_PREFIX . "options")
 // 删
 $this->execute("DELETE FROM " . DB_PREFIX . "users WHERE uid = ?", array($uid));
+// 查
+$this->execute("SELECT * FROM " . DB_PREFIX . "options")
 // 改
 $this->execute("UPDATE " . DB_PREFIX . "options SET value = ? WHERE name = ?", array($value, $name));
 ```
