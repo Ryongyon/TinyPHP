@@ -19,7 +19,7 @@ TinyPHP 是一个基础的 PHP MVC 框架模板，仅对「路由」「数据库
 
 ## 伪静态
 
-如果需要 URL伪静态 需要手动开启，首先到 `config.inc.php` 文件里找到 `URL_REWRITE` 选项，设置为 `true`。接下来根据你的服务器环境配置 `rewrite` 规则。
+默认是关闭的，如果需要 URL伪静态 需要手动开启，首先到 `config.inc.php` 文件里找到 `URL_REWRITE` 选项，设置为 `true`。接下来根据你的服务器环境配置 `rewrite` 规则。
 
 #### Nginx:
 ```
