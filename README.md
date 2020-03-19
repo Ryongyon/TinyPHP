@@ -138,4 +138,6 @@ $this->execute("UPDATE " . DB_PREFIX . "options SET value = ? WHERE name = ?", a
 
 ## 其他说明
 
-请阅读源码...
+- [TinyPHP 源码讲解（1）：入口文件](https://www.ryongyon.com/tinyphp-source-code-explanation-1.html "TinyPHP 源码讲解（1）：入口文件")
+- [TinyPHP 源码讲解（2）：框架核心](https://www.ryongyon.com/tinyphp-source-code-explanation-2.html "TinyPHP 源码讲解（2）：框架核心")
+- [TinyPHP 源码讲解（3）：控制器、模型、视图](https://www.ryongyon.com/tinyphp-source-code-explanation-3.html "TinyPHP 源码讲解（3）：控制器、模型、视图")
