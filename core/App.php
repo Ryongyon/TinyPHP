@@ -37,12 +37,10 @@ class App {
 
     // 检测敏感字符并删除
     private function removeMagicQuotes() {
-        if (get_magic_quotes_gpc()) {
-            $_GET     = isset($_GET)     ? $this->stripSlashesDeep($_GET )    : '';
-            $_POST    = isset($_POST)    ? $this->stripSlashesDeep($_POST )   : '';
-            $_COOKIE  = isset($_COOKIE)  ? $this->stripSlashesDeep($_COOKIE)  : '';
-            $_SESSION = isset($_SESSION) ? $this->stripSlashesDeep($_SESSION) : '';
-        }
+        $_GET     = isset($_GET)     ? $this->stripSlashesDeep($_GET)     : '';
+        $_POST    = isset($_POST)    ? $this->stripSlashesDeep($_POST)    : '';
+        $_COOKIE  = isset($_COOKIE)  ? $this->stripSlashesDeep($_COOKIE)  : '';
+        $_SESSION = isset($_SESSION) ? $this->stripSlashesDeep($_SESSION) : '';
     }
     
     // 删除敏感字符
