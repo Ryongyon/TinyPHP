@@ -1,7 +1,7 @@
 <?php if (!defined('APP_PATH')) exit; ?>
 <?php
+// 阻止跨站请求
 if (!empty($_GET) || !empty($_POST)) {
-    // 阻止跨站请求
     if (empty($_SERVER['HTTP_REFERER'])) exit;
     $parts = parse_url($_SERVER['HTTP_REFERER']);
     if (!empty($parts['port'])) $parts['host'] = "{$parts['host']}:{$parts['port']}";
@@ -10,8 +10,21 @@ if (!empty($_GET) || !empty($_POST)) {
     // 生成Token
     $_SESSION['install']['token'] = md5(time() + mt_rand());
 }
+// 复制配置文件内容
+$config = implode('', array_slice(file('config.inc.php'), 0));
+// 配置文件预替换字符串
+$configMap = ['%1%', '%2%', '%3%', '%4%', '%5%', '%6%', '%7%'];
+// 遍历查询是否存在
+foreach ($configMap as $value) {
+    // 如果没找到预替换字符串则说明安装过程序, 无需重新安装
+    // 此处提醒手动检查数据库信息即可，亦或者写一个 “重新安装” 的程序
+    if (!strpos($config, $value)) {
+        throw new Exception('无法连接数据库, 请检查配置文件中的数据库信息是否正确', 500);
+    }
+}
+// 开始安装
 if ($_GET['install'] === 'start') {
-    // 开始安装
+    // 检查Token是否有效
     if ($_POST['token'] !== $_SESSION['install']['token']) throw new Exception('TOKEN认证失败, 请重试!', 500);
     // 赋值变量
     $title       = $_POST['title'];
@@ -63,10 +76,8 @@ if ($_GET['install'] === 'start') {
     $db->query("INSERT INTO `{$db_prefix}options` (`name`, `value`) VALUES ('description', '{$description}');");
     $db->query("INSERT INTO `{$db_prefix}options` (`name`, `value`) VALUES ('keywords', '{$keywords}');");
     $db->query("INSERT INTO `{$db_prefix}users` (`username`, `nickname`, `password`, `created`, `group`) VALUES ('admin', 'admin', 'admin', '{$time}', 'administrator');");
-    // 载入配置文件
-    $config = file_get_contents('config.inc.php');
-    // 替换数据库配置
-    $config = str_replace(['%1%', '%2%', '%3%', '%4%', '%5%', '%6%', '%7%'], [$db_host, $db_port, $db_user, $db_pass, $db_name, $db_prefix, $db_charset], $config);
+    // 替换数据库配置信息
+    $config = str_replace($configMap, [$db_host, $db_port, $db_user, $db_pass, $db_name, $db_prefix, $db_charset], $config);
     // 写入文件
     file_put_contents('config.inc.php',$config);
     // 刷新页面
