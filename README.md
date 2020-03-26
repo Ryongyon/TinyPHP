@@ -93,7 +93,7 @@ RewriteRule ^(.*)$ index.php [L,E=PATH_INFO:$1]
 
 #### 命名规范
 
-`xxxxxModel.php` 其中xxxxx是模型命名，例如 `indexModel.php`
+`xxxxxModel.php` 其中xxxxx是模型命名，例如 `optionsModel.php`，其中options对应的是数据库表名
 
 #### $this->execute()
 
@@ -125,6 +125,16 @@ $this->execute("UPDATE " . DB_PREFIX . "options SET value = ? WHERE name = ?", a
 #### $this->lastInsertId()
 
 返回最后插入行的ID或序列值
+
+#### 连贯操作
+
+Model基类文件中进行了简易的连贯操作封装方法，你可以直接在模型文件中使用, 就像这样 :
+
+```php
+$this->where('name = ?')->param('title')->select()->fetch()
+```
+
+所有操作都是基于 `execute` 实现的，这意味着更安全可靠，更多示例详见 `core\Models\optionsModel.php`
 
 ## 视图
 
