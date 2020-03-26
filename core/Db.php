@@ -54,6 +54,7 @@ class Db {
                     }
                 }
                 $this->object->execute();
+                $this->initVar();
             } catch (Exception $e) {
                 throw new Exception('数据库操作失败：' . $e->getMessage(), 500);
             }
