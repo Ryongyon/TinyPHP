@@ -3,12 +3,14 @@
      Controller基类
 **********************/
 namespace Core;
+use Exception;
 
 class Controller {
 
-    // 构造函数：实例化 View 基类
+    // 构造函数
     private $_view;
     public function __construct() {
+        // 实例化 View 基类
         $this->_view = new View();
     }
 
