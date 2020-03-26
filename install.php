@@ -10,7 +10,7 @@ if (!empty($_GET) || !empty($_POST)) {
     // 生成Token
     $_SESSION['install']['token'] = md5(time() + mt_rand());
 }
-// 复制配置文件内容
+// 赋值配置文件内容
 $config = implode('', array_slice(file('config.inc.php'), 0));
 // 配置文件预替换字符串
 $configMap = ['%1%', '%2%', '%3%', '%4%', '%5%', '%6%', '%7%'];
