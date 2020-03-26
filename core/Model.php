@@ -14,10 +14,9 @@ class Model extends Db {
         $this->_table = DB_PREFIX . str_replace(['Core\\Models\\', 'Model'], '', get_class($this));
     }
 
-    // 条件
-    private $_where;
-    protected function where($where) {
-        $this->_where = "WHERE {$where}";
+    // 表名
+    protected function table($name) {
+        $this->_table = DB_PREFIX . $name;
         return $this;
     }
 
@@ -25,6 +24,13 @@ class Model extends Db {
     private $_param;
     protected function param() {
         $this->_param = func_get_args();
+        return $this;
+    }
+
+    // 条件
+    private $_where;
+    protected function where($where) {
+        $this->_where = "WHERE {$where}";
         return $this;
     }
 
@@ -121,6 +127,7 @@ class Model extends Db {
 
     // 初始化各项变量
     protected function initVar() {
+        $this->_table = DB_PREFIX . str_replace(['Core\\Models\\', 'Model'], '', get_class($this));
         $this->_param = [];
         $this->_where = '';
         $this->_limit = '';
