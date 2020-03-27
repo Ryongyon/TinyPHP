@@ -131,10 +131,17 @@ $this->execute("UPDATE " . DB_PREFIX . "options SET value = ? WHERE name = ?", a
 Model基类文件中进行了简易的连贯操作封装方法，你可以直接在模型文件中使用, 就像这样 :
 
 ```php
-$this->where('name = ?')->param('title')->select()->fetch()
+// 增
+$this->insert(['name' => 'test', 'value' => '123'])->rowCount()
+// 删
+$this->where('name = ?')->param('test')->delete()->rowCount()
+// 查
+$this->where('name = ?')->param('test')->select()->fetch()
+// 改
+$this->where('name = ?')->param('test')->update(['name' => 'newTest', 'value' => 'new123'])->rowCount()
 ```
 
-所有操作都是基于 `execute` 实现的，这意味着更安全可靠，更多示例详见 `core\Models\optionsModel.php`
+所有操作都是基于 `execute` 实现的，这意味着更安全可靠，示例详见 `core\Models\optionsModel.php`
 
 ## 视图
 
